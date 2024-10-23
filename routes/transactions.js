@@ -30,7 +30,24 @@ router.get('/', async (req, res) => {
 // GET summary of transactions
 router.get('/summary', async (req, res) => {
     try {
-        const transactions = await Transaction.find({});
+
+        const {startDate, endDate, category} = req.query
+        const filter = {}
+
+        if (startDate && endDate){
+
+            filter.date = {
+
+                $gte: new Date(startDate),
+                $lte: new Date(endDate)
+            }
+        }
+
+        if (category) {
+            filter.category = category
+        }
+
+        const transactions = await Transaction.find(filter);
         
         const summary = transactions.reduce((acc, transaction) => {
             if (transaction.type === 'income') {

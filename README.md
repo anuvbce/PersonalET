@@ -1,4 +1,17 @@
-1.  Selected Database is Mongodb.
+Initial Setup:
+
+1.  Install Dependencies:
+    npm init -y
+    npm install express mongoose
+    After installation please check your package.json file for all the installed dependencies and their versions.
+2.  Set up the server.js with the Mongodb connection string as the selected database is Mongodb.
+3.  Mongodb
+
+    1. Created clusterpet by providing access permissions to all the Ipv4
+    2. For better performance dropped the index which is creating automatically
+    3. Used Mongodb compass.
+
+4.  Selected Database is Mongodb.
     Defining the collections transactions and categories
     Transactions Collection:
     {
@@ -17,7 +30,7 @@
 
             }
 
-2.  API Endpoints
+5.  API Endpoints
 
             1. POST /transactions - Add a new transaction
 
@@ -98,28 +111,50 @@
                "balance": 2000
                }
 
-        Below are the API calls images through Postman
+Below are the API calls images through Postman
 
-    GET http://localhost:3000/transactions
+1. To GET all transactions
 
-![alt text](image.png)
+   GET http://localhost:3000/transactions
 
-POST http://localhost:3000/transactions
+   ![alt text](image.png)
 
-![alt text](image-1.png)
+2. To INSERT/CREATE a transactions
 
-PUT http://localhost:3000/transactions/003
+   POST http://localhost:3000/transactions
 
-![alt text](image-2.png)
+   ![alt text](image-1.png)
 
-DELETE http://localhost:3000/transactions/002
+3. To UPDATE a transactions
 
-![alt text](image-3.png)
+   PUT http://localhost:3000/transactions/003
 
-GET http://localhost:3000/transactions/005
+   ![alt text](image-2.png)
 
-![alt text](image-4.png)
+4. To DELETE a transaction
 
-GET http://localhost:3000/transactions/summary
+   DELETE http://localhost:3000/transactions/002
 
-![alt text](image-5.png)
+   ![alt text](image-3.png)
+
+5. To GET a specified trasaction
+
+   GET http://localhost:3000/transactions/005
+
+   ![alt text](image-4.png)
+
+6. To GET the overall summary of all the transactions
+
+   GET http://localhost:3000/transactions/summary
+
+   ![alt text](image-5.png)
+
+7. To GET summary for a specific date range , which gives total income, total expenses and balance for that particular date range.
+
+   GET http://localhost:3000/transactions/summary?startDate= 8.1.2024&endDate=10.31.2024
+
+   ![alt text](image-6.png)
+
+8. To GET summary for a specific category
+
+   http://localhost:3000/transactions/summary?category=Party
