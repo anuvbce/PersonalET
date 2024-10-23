@@ -14,13 +14,24 @@ router.post('/', async (req, res) => {
     }
 });
 
-// GET /transactions - Retrieve all transactions
+// GET /transactions - Retrieve all transactions with pagination
 router.get('/', async (req, res) => {
     console.log('GET /transactions request received');
+
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 100; // Default to 10 items per page
+    const skip = (page - 1) * limit; // Calculate how many records to skip
     try {
-        const transactions = await Transaction.find();
+        const transactions = await Transaction.find({})
+        .skip(skip)
+        .limit(limit);
+        const totalTransactions = await Transaction.countDocuments();
         console.log('Transactions fetched:', transactions);
-        res.status(200).json(transactions);
+        res.status(200).json({total: totalTransactions,
+            page,
+            limit,
+            transactions
+        });
     } catch (error) {
         console.error('Error fetching transactions:', error); 
         res.status(500).json({ error: error.message });
