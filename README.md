@@ -158,3 +158,11 @@ Below are the API calls images through Postman
 8. To GET summary for a specific category
 
    http://localhost:3000/transactions/summary?category=Party
+
+9. To GET paginated transactions with limit
+
+   http://localhost:3000/transactions?page=1&limit=10
+
+   ![alt text](image-7.png)
+
+10.
