@@ -13,7 +13,16 @@ mongoose.connect('mongodb+srv://anuvbce:Anuradha%40123@clusterpet.mbwg5.mongodb.
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log("Connected to MongoDB"))
+.then(async () =>{ console.log("Connected to MongoDB")
+    try {
+        await Transaction.collection.dropIndex("id_1");  // Replace with your actual index name
+        console.log('Index dropped successfully');
+    } catch (err) {
+        console.log('Error dropping index or index does not exist:', err.message);
+    }
+
+
+})
 .catch(err => console.error("MongoDB connection error:", err));
 
 // Routes

@@ -27,11 +27,37 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET summary of transactions
+router.get('/summary', async (req, res) => {
+    try {
+        const transactions = await Transaction.find({});
+        
+        const summary = transactions.reduce((acc, transaction) => {
+            if (transaction.type === 'income') {
+                acc.totalIncome += transaction.amount;
+            } else if (transaction.type === 'expense') {
+                acc.totalExpense += transaction.amount;
+            }
+            acc.balance = acc.totalIncome - acc.totalExpense;
+            return acc;
+        }, {
+            totalIncome: 0,
+            totalExpense: 0,
+            balance: 0,
+        });
+
+        res.json(summary);
+    } catch (error) {
+        console.error('Error fetching transaction summary:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // GET /transactions/:id - Retrieve a transaction by ID
 router.get('/:id', async (req, res) => {
     try {
-        const id = req.params.id
-        const transaction = await Transaction.findById({id:id});
+       
+        const transaction = await Transaction.findOne({id: req.params.id});
         if (!transaction) {
             return res.status(404).json({ error: "Transaction not found" });
         }
@@ -40,6 +66,8 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 
 // PUT /transactions/:id - Update a transaction by ID
 router.put('/:id', async (req, res) => {
@@ -73,39 +101,6 @@ router.delete('/:id', async (req, res) => {
 
 
 
-// Get a summary of transactions
-router.get('/summary', async (req, res) => {
-    try {
-        // Fetch all transactions
-        const transactions = await Transaction.find();
-        
-        // Initialize summary values
-        let totalIncome = 0;
-        let totalExpenses = 0;
-
-        // Calculate totals
-        transactions.forEach(transaction => {
-            if (transaction.type === 'income') {
-                totalIncome += transaction.amount;
-            } else if (transaction.type === 'expense') {
-                totalExpenses += transaction.amount;
-            }
-        });
-
-        // Calculate balance
-        const balance = totalIncome - totalExpenses;
-
-        // Return summary
-        res.status(200).json({
-            totalIncome,
-            totalExpenses,
-            balance
-        });
-    } catch (error) {
-        console.error('Error fetching summary:', error);
-        res.status(500).json({ error: error.message });
-    }
-});
 
 
 module.exports = router;
