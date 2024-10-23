@@ -19,81 +19,86 @@
 
 2.  API Endpoints
 
-    1. POST /transactions - Add a new transaction
+        1. POST /transactions - Add a new transaction
 
-    Request Body:
-    {
-    "type": "income",
-    "category": "salary",
-    "amount": 1000,
-    "date": "2023-10-22",
-    "description": "October salary"
-    }
-    Response:
-
+        Request Body:
         {
-
-             "message": "Transaction added successfully"
+        "type": "income",
+        "category": "salary",
+        "amount": 1000,
+        "date": "2023-10-22",
+        "description": "October salary"
         }
-
-    2. GET /transactions - Retrieve all transactions
-
-    Response:
-    [
-    {
-    "_id": "transaction_id",
-    "type": "income",
-    "category": "salary",
-    "amount": 1000,
-    "date": "2023-10-22",
-    "description": "October salary"
-    }
-    ]
-
-    3. GET /transactions/:ID
-
-    - Retrieve a transaction by ID
-      Response:
+        Response:
 
             {
-                "_id": "transaction_id",
-                "type": "income",
-                "category": "salary",
-                "amount": 1000,
-                "date": "2023-10-22",
-                "description": "October salary"
+
+                 "message": "Transaction added successfully"
             }
 
-    4. PUT /transactions/:ID
+        2. GET /transactions - Retrieve all transactions
 
-    - Update a transaction by ID
+        Response:
+        [
+        {
+        "_id": "transaction_id",
+        "type": "income",
+        "category": "salary",
+        "amount": 1000,
+        "date": "2023-10-22",
+        "description": "October salary"
+        }
+        ]
 
-      Request Body:
-      {
-      "amount": 1200
-      }
+        3. GET /transactions/:ID
 
-      Response:
+        - Retrieve a transaction by ID
+          Response:
 
-            {
-                "message": "Transaction updated successfully"
-            }
+                {
+                    "_id": "transaction_id",
+                    "type": "income",
+                    "category": "salary",
+                    "amount": 1000,
+                    "date": "2023-10-22",
+                    "description": "October salary"
+                }
 
-    5. DELETE /transactions/:ID
+        4. PUT /transactions/:ID
 
-    - Delete a transaction by ID
+        - Update a transaction by ID
 
-      Response:
-      {
-      "message": "Transaction deleted successfully"
-      }
+          Request Body:
+          {
+          "amount": 1200
+          }
 
-    6. GET /summary - Retrieve a summary of transactions
-       Query Parameters: Optionally filter by category, date range.
+          Response:
 
-       Response:
-       {
-       "totalIncome": 5000,
-       "totalExpenses": 3000,
-       "balance": 2000
-       }
+                {
+                    "message": "Transaction updated successfully"
+                }
+
+        5. DELETE /transactions/:ID
+
+        - Delete a transaction by ID
+
+          Response:
+          {
+          "message": "Transaction deleted successfully"
+          }
+
+        6. GET /summary - Retrieve a summary of transactions
+           Query Parameters: Optionally filter by category, date range.
+
+           Response:
+           {
+           "totalIncome": 5000,
+           "totalExpenses": 3000,
+           "balance": 2000
+           }
+
+    Below are the API calls images through Postman
+    GET http://localhost:3000/transactions
+
+![alt text](image.png)
